@@ -12,8 +12,6 @@ export default function GenericTopBar() {
       <Logo> 
         <img onClick={()=>navigate("/market")} src={condoshoplogomini} alt="logo" />
       </Logo>
-      
-      <User />
     </Container>
   );
 }

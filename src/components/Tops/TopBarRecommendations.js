@@ -12,8 +12,8 @@ export default function RecommendationTopBar() {
       <Logo> 
         <img onClick={()=>navigate("/market")} src={condoshoplogomini} alt="logo" />
       </Logo>
-      <Column>
-      <ion-icon onClick={()=>navigate("/market")} name="cart-sharp"></ion-icon>
+      <Column onClick={()=>navigate("/market")}>
+      <ion-icon  name="cart-sharp"></ion-icon>
         <h2> Adquirir <br>
         </br> produtos</h2>
       </Column>
@@ -32,13 +32,13 @@ const Column=styled.div`
     display: flex;
     align-items: center;
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 15px;
     color: #000000;
   }
   ion-icon{
         color:#38b6ff;
-        width: 60px;
-        height: 60px;
+        width: 45px;
+        height: 45px;
     }
 
 `
@@ -50,8 +50,8 @@ const Logo = styled.div`
   align-items: center;
   img{
     border-radius: 10px;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
   margin-bottom: 10px;
 

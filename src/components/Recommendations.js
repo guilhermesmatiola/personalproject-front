@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, React, ReactDOM } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import RecommendationTopBar from './Tops/TopBarRecommendations';
 import { UserContext } from '../contexts/UserContext';
-import { FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
+import UserRecommendationCreate from './Support/CreateRecommend'
 
 export default function RecommendationsPage() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
-  const [isLiked, setIsLiked] = useState(true);
 
+  const [isLiked, setIsLiked] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
 
   function toggleLike(){
@@ -44,7 +44,6 @@ export default function RecommendationsPage() {
 
       }
   }
-  
 
   useEffect(() => {
    
@@ -53,7 +52,7 @@ export default function RecommendationsPage() {
         Authorization: `Bearer ${user.token}`
       }
     };
-
+    
     const request = axios.get('http://localhost:4000/recommendations', config);
 
     request.then(response => {
@@ -65,36 +64,39 @@ export default function RecommendationsPage() {
     });
   }, []);
 
+  const navigateToContacts = () => {
+    // 👇️ navigate to /contacts
+    navigate('/contacts');
+  };
+
 
   return (
     
     <Edit>
         <RecommendationTopBar />
      <Container>
-        
         <InfoRoute>
-            <h2> O que você deseja que nossa loja venda? Insira abaixo! <br></br> Avalie também os produtos abaixo com "Gostei" ou "Não gostei" </h2>
+            <h2> O que você deseja que nossa loja venda? </h2>
+            <h2>Insira abaixo!</h2>
         </InfoRoute>
+        <UserRecommendationCreate></UserRecommendationCreate>
         <AddRecommendation>
-            <button >
-              Adicionar <br></br> recomendação
-            </button>
+              <h2> Avalie com "Gostei" ou "Não gostei"  :) </h2> 
+              <Border></Border>
             {items.map((item, index)=>(
               <Recommendation>
                 <Titles>
-                <h1>{item.name}</h1>
-                <h3>{item.description}</h3>
+                    <h1>{item.name}</h1>
+                    <h3>{item.description}</h3>
                 </Titles>
                 
                 <img src={item.image} alt={item.name} />
                 <h2> <h1>Preço: </h1>  R${item.price}</h2>
 
-                <Score iconColor={isFavorite ? 'ABCDEF' : "FFFFFF"}>
-
+                <Score >
                   <h4> {item.score} |</h4>
-                  <ion-icon name="thumbs-up"></ion-icon>
+                  <ion-icon  name="thumbs-up"></ion-icon>
                   <ion-icon name="thumbs-down"></ion-icon>
-                  
                 </Score>
 
               </Recommendation>
@@ -109,6 +111,14 @@ export default function RecommendationsPage() {
      
   );
 }
+
+const Border = styled.div`
+  margin-top: 8px;
+  height: 1px;
+  width: 100%;
+  background-color: white;
+`
+
 const Edit = styled.div`
   display: flex;
   flex-direction: column;
@@ -134,15 +144,14 @@ const Score = styled.div`
 `
 
 const Recommendation = styled.div`
-  margin-top: 20px;
-  border: 10px solid whitesmoke;
-  border-radius: 10px;
-  box-shadow: 4px 4px grey;
-  width: 150px;
+  margin-top: 8px;
+  border-bottom: 1px solid whitesmoke;
+  min-width: 300px;
   min-height: 200px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  flex-wrap: wrap;
   box-sizing: border-box;
   img{
     height: 100px;
@@ -174,42 +183,35 @@ const Titles = styled.div`
 
 const InfoRoute=styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    margin-bottom: 8px;
     h2{
         font-weight: bolder;
     }
 `
 const AddRecommendation=styled.div`
   display: flex;
-  margin-top: 15px;
+  margin-top: 1px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  button{
-        font-weight: 700;
-        min-width: 100px;
-        height: 65px;
-        margin-right: 10px;
-        margin-left: 10px;
-        text-align: center;
-        background-color: white;
-        color: blue;
-        font-size: 21px;
-        border: none;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-  }      
+  
+  h2{
+        font-weight: bolder;
+        margin-top: 8px;
+    }
 `
 const Container = styled.div`
-  
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   margin: auto;
   margin-top: 100px;
   min-height: 100vh;
   width: 80%;
   padding: 27px 20px;
   background-color: #38b6ff;
-  z-index: -1;
 
 `;

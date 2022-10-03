@@ -6,7 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import GenericTopBar from "../Tops/GenericTopBar";
 
-export default function CreateNewProduct({ onCreateNewRecommendation = () => 0, disabled = false }) {
+export default function UserRecommendation({ onCreateNewRecommendation = () => 0, disabled = false }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -34,14 +34,14 @@ export default function CreateNewProduct({ onCreateNewRecommendation = () => 0, 
         price      
     }
 
-    const promise=axios.post(`http://localhost:4000/products`, postTransaction, config);
+    const promise=axios.post(`http://localhost:4000/recommendations`, postTransaction, config);
 
     promise.then(resposta => {
         setDescription("");
         setName("");
         setImage("");
         setPrice("");
-        navigate("/market");
+        navigate("/recommendations");
     });
 }
 
@@ -56,7 +56,7 @@ export default function CreateNewProduct({ onCreateNewRecommendation = () => 0, 
                 <input type="text" id="description" placeholder="descrição" value={description} onChange={e => setDescription(e.target.value)} disabled={disabled} />
                 <input type="text" id="image" placeholder="imagem do produto" value={image} onChange={e => setImage(e.target.value)} disabled={disabled} />
                 <input type="number" id="price" placeholder="preço" value={price} onChange={e => setPrice(e.target.value)} disabled={disabled} />
-                <button id="submit">Criar Produto  </button>
+                <button id="submit">Criar recomendação  </button>
             </Form>
 
             
@@ -73,7 +73,7 @@ export default function CreateNewProduct({ onCreateNewRecommendation = () => 0, 
             </Warning>
 
            
-            <Back onClick={()=>navigate("/market")}>
+            <Back onClick={()=>navigate("/recommendations")}>
                 Desistiu de postar? Clique aqui para voltar
             </Back>
                
@@ -92,6 +92,7 @@ const Back=styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-size: 20px;
 
 `
 
@@ -166,5 +167,7 @@ const Form = styled.form`
         a{
             text-decoration: none;
         }
+        cursor: pointer;
+
     }
 `

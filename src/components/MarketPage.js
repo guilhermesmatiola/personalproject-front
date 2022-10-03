@@ -48,19 +48,30 @@ export default function MarketPage() {
 
   return (
     <CartContext.Provider value={{ cart, addToCart }}>
-      <Container>
-        <TopBar />
-        
-        {buildItems()}
-      </Container>
+      <Margin>
+      <TopBar />
+        <Container>
+          <h1>Adquira seus produtos abaixo!</h1>
+          
+          {buildItems()}
+        </Container>
+      </Margin>
     </CartContext.Provider>
   );
 }
+const Margin = styled.div`
+  margin-top: 100px;
+  background-color: #38b6ff;
+`;
 
 const Container = styled.div`
-  margin: auto;
-  min-height: 100vh;
-  width: 80%;
-  padding: 27px 20px;
+  display: flex;
+  flex-direction: column;
+  h1{
+    font-size: 15px;
+  }
+  align-items: center;
+  margin-top: 100px;
+  padding: 20px;
   background-color: #38b6ff;
 `;
