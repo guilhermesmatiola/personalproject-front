@@ -1,6 +1,7 @@
 import useTopRecommendations from "../../../hooks/api/useTopRecommendations";
 
-import Recommendation from "../../../components/Recommendation";
+//import Recommendation from "../../../components/Recommendation";
+import Recommendation from '../../../components/Recommendations'
 
 export default function Home() {
   const { recommendations, loadingRecommendations, listRecommendations } = useTopRecommendations();

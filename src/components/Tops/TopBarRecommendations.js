@@ -14,7 +14,8 @@ export default function RecommendationTopBar() {
       </Logo>
       <Column>
       <ion-icon onClick={()=>navigate("/market")} name="cart-sharp"></ion-icon>
-        <h2>Adquirir produtos</h2>
+        <h2> Adquirir <br>
+        </br> produtos</h2>
       </Column>
       <User />
     </Container>
@@ -35,7 +36,7 @@ const Column=styled.div`
     color: #000000;
   }
   ion-icon{
-        color:white;
+        color:#38b6ff;
         width: 60px;
         height: 60px;
     }
@@ -60,5 +61,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-around;
   margin-bottom: 30px;
+  position: fixed;
+  background-color: whitesmoke;
+  width: 100%;
+  top:0;
+  z-index: 2;
+  padding-top: 8px;
+  box-sizing: border-box;
   
 `;

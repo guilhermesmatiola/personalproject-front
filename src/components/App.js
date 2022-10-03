@@ -3,7 +3,8 @@ import LoginPage from './Auth/LoginPage';
 import MarketPage from './MarketPage';
 import SignUpPage from './Auth/SignUpPage';
 import RecommendationsPage from './Recommendations'
-import CreateNewRecommendation from './createRecommendation/createRecommendation';
+import CreateNewProduct from './createRecommendation/createRecommendation';
+import Top from '../pages/Timeline/Top/index'
 
 import { UserProvider } from '../contexts/UserContext';
 
@@ -16,7 +17,9 @@ function App() {
           <Route path="/sign-up" element= {<SignUpPage />}/>
           <Route path="/market" element = { <MarketPage />} />
           <Route path="/recommendations" element = { <RecommendationsPage />} />
-          <Route path="/createrecommendations" element = { <CreateNewRecommendation />} />
+          <Route path="/createproduct" element = { <CreateNewProduct />} />
+          <Route path="/top" element = { <Top />} />
+
 
         </Routes>
       </BrowserRouter>
