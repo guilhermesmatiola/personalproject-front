@@ -51,7 +51,7 @@ export default function UserRecommendation({ onCreateNewRecommendation = () => 0
           alert("Dados incorretos!");
           window.location.reload()
         }
-      });
+    });
 }
 
   

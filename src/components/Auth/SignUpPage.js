@@ -5,9 +5,11 @@ import styled from 'styled-components';
 import condoshoplogo from "../../assets/condoshoplogo.png"
 import Button from '../Support/Button';
 import Input from '../Support/Input';
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false)
   const [city, setCity] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   function signUpUser() {
+    setIsLoading(true);
     const body = {
       name,
       email,
@@ -26,12 +29,16 @@ export default function LoginPage() {
     const request = axios.post('http://localhost:4000/signup', body);
 
     request.then(response => {
+      setIsLoading(false);
       navigate('/');
     });
 
     request.catch(error => {
-      console.log(error);
-    });
+      if(error){
+        alert("Dados incorretos!");
+        window.location.reload()
+      }
+  });
   }
 
   return (
@@ -39,47 +46,38 @@ export default function LoginPage() {
       <Logo> 
         <img src={condoshoplogo} alt="logo" />
       </Logo>
-      {/* <BigLogo /> */}
-      <Input
-        type="text"
-        placeholder="Nome"
-        name="name"
-        id="name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <Input
-        type="text"
-        placeholder="E-mail"
-        id="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <Input
-        type="text"
-        placeholder="Imagem"
-        id="image"
-        value={picture}
-        onChange={e => setPicture(e.target.value)}
-      />
-      <Input
-        type="password"
-        placeholder="Senha"
-        id="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <Grid>
-        <Button active={city === 'Torre 1'} onClick={() => setCity('Torre 1')}>
-         Torre 1
-        </Button>
-        <Button active={city === 'Torre 2'} onClick={() => setCity('Torre 2')}>
-          Torre 2
-        </Button>
-      </Grid>
-      <Button id="cadastrar" onClick={signUpUser}>
-        Cadastrar
-      </Button>
+
+      {isLoading ? (
+
+        <>
+          <Input disabled type="text" placeholder="Nome" name="name" id="name" value={name} onChange={e => setName(e.target.value)}/>
+          <Input disabled type="text" placeholder="E-mail" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
+          <Input disabled type="text" placeholder="Imagem" id="image" value={picture} onChange={e => setPicture(e.target.value)} />
+          <Input disabled type="password" placeholder="Senha" id="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <Grid>
+            <Button disabled active={city === 'Torre 1'} onClick={() => setCity('Torre 1')}> Torre 1 </Button>
+            <Button disabled active={city === 'Torre 2'} onClick={() => setCity('Torre 2')}> Torre 2 </Button>
+          </Grid>
+          <Button disabled id="cadastrar" opacity={0.7} > {<ThreeDots color={"#ffffff"} width={51} />} </Button>
+        </>
+        
+      ):(
+
+      <>
+        <Input type="text" placeholder="Nome" name="name" id="name" value={name} onChange={e => setName(e.target.value)}/>
+        <Input type="text" placeholder="E-mail" id="email" value={email} onChange={e => setEmail(e.target.value)}/>
+        <Input type="text" placeholder="Imagem" id="image" value={picture} onChange={e => setPicture(e.target.value)} />
+        <Input type="password" placeholder="Senha" id="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <Grid>
+          <Button active={city === 'Torre 1'} onClick={() => setCity('Torre 1')}> Torre 1 </Button>
+          <Button active={city === 'Torre 2'} onClick={() => setCity('Torre 2')}> Torre 2 </Button>
+        </Grid>
+        <Button id="cadastrar" onClick={signUpUser}> Cadastrar </Button>
+      </>
+
+      )}
+
+      
       <StyledLink to="/">Já possui uma conta? Faça login</StyledLink>
     </Container>
   );
