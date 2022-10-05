@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import condoshoplogo from "../../assets/condoshoplogo.png"
-//import BigLogo from './BigLogo';
+import { ThreeDots } from 'react-loader-spinner';
 import Button from '../Support/Button';
 import Input from '../Support/Input';
 
@@ -14,20 +14,26 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   function login(event) {
     event.preventDefault();
 
+    setIsLoading(true);
     const body = { email, password };
     const request = axios.post('http://localhost:4000/signin', body);
 
     request.then(response => {
       setUser(response.data);
       navigate('/market');
+      setIsLoading(false);
     });
 
     request.catch(error => {
-      console.log(error);
+      if(error){
+        alert("Dados incorretos!");
+        window.location.reload()
+      }
     });
   }
 
@@ -36,29 +42,26 @@ export default function LoginPage() {
       <Logo> 
         <img src={condoshoplogo} alt="logo" />
       </Logo>
-      {/* <BigLogo /> */}
-      <form onSubmit={login}>
-        <Input
-          type="text"
-          placeholder="E-mail"
-          id="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          id="password"
-          data-test-id="xablau"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <Button id="submit" type="submit">
-          Entrar
-        </Button>
-      </form>
+
+      {isLoading ? (
+
+        <form background={"#f2f2f2"} color={"#afafaf"} >
+          <Input disabled type="text" placeholder="E-mail" id="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+          <Input disabled type="password" placeholder="Senha" id="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+          <Button disabled id="submit" type="submit" opacity={0.7} > {<ThreeDots color={"#ffffff"} width={51} />} </Button>
+        </form>
+
+        ) : (
+
+        <form background={"#ffffff"} color={"#666666"}  onSubmit={login}>
+          <Input type="text" placeholder="E-mail" id="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+          <Input type="password" placeholder="Senha" id="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+          <Button id="submit" type="submit"> Entrar </Button>
+        </form>
+
+      )}
+
+      
       <StyledLink to="/sign-up">Não possui uma conta? Cadastre-se</StyledLink>
     </Container>
   );
