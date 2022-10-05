@@ -5,6 +5,7 @@ import {React, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import axios from "axios";
 import GenericTopBar from "../Tops/GenericTopBar";
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function UserRecommendation({ onCreateNewRecommendation = () => 0, disabled = false }) {
   const [name, setName] = useState("");
@@ -41,8 +42,16 @@ export default function UserRecommendation({ onCreateNewRecommendation = () => 0
         setName("");
         setImage("");
         setPrice("");
+        setIsLoading(false);
         navigate("/recommendations");
     });
+
+    promise.catch(error => {
+        if(error){
+          alert("Dados incorretos!");
+          window.location.reload()
+        }
+      });
 }
 
   
@@ -51,13 +60,29 @@ export default function UserRecommendation({ onCreateNewRecommendation = () => 0
 
             <GenericTopBar></GenericTopBar>
 
-            <Form onSubmit={createRecommendation}>
-                <input type="text" id="name" placeholder="nome do produto" value={name} onChange={e => setName(e.target.value)} disabled={disabled} />
-                <input type="text" id="description" placeholder="descrição" value={description} onChange={e => setDescription(e.target.value)} disabled={disabled} />
-                <input type="text" id="image" placeholder="imagem do produto" value={image} onChange={e => setImage(e.target.value)} disabled={disabled} />
-                <input type="number" id="price" placeholder="preço" value={price} onChange={e => setPrice(e.target.value)} disabled={disabled} />
-                <button id="submit">Criar recomendação  </button>
-            </Form>
+            {isLoading ? (
+                
+                <Form background={"#f2f2f2"} color={"#afafaf"} >
+                    <input disabled type="text" id="name" placeholder="nome do produto" value={name} onChange={e => setName(e.target.value)}/>
+                    <input disabled type="text" id="description" placeholder="descrição" value={description} onChange={e => setDescription(e.target.value)}/>
+                    <input disabled type="text" id="image" placeholder="imagem do produto" value={image} onChange={e => setImage(e.target.value)}/>
+                    <input disabled type="number" id="price" placeholder="preço" value={price} onChange={e => setPrice(e.target.value)}/>
+                    <button disabled id="submit" opacity={0.7} >{<ThreeDots color={"#ffffff"} width={51} />}  </button>
+                </Form>
+            
+            ):(
+
+                <Form background={"#ffffff"} color={"#666666"} onSubmit={createRecommendation}>
+                    <input type="text" id="name" placeholder="nome do produto" value={name} onChange={e => setName(e.target.value)} disabled={disabled} />
+                    <input type="text" id="description" placeholder="descrição" value={description} onChange={e => setDescription(e.target.value)} disabled={disabled} />
+                    <input type="text" id="image" placeholder="imagem do produto" value={image} onChange={e => setImage(e.target.value)} disabled={disabled} />
+                    <input type="number" id="price" placeholder="preço" value={price} onChange={e => setPrice(e.target.value)} disabled={disabled} />
+                    <button id="submit">Criar recomendação  </button>
+                </Form>
+
+            )}
+
+            
 
             
 
