@@ -91,7 +91,7 @@ export default function RecommendationsPage() {
                 </Titles>
                 
                 <img src={item.image} alt={item.name} />
-                <h2> <h1>Preço: </h1>  R${item.price}</h2>
+                <h2> <h1>Preço: </h1>  R${item.price.toFixed(2)}</h2>
 
                 <Score >
                   <h4> {item.score} |</h4>
