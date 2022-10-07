@@ -17,9 +17,19 @@ export default function TopBar() {
         <h2>Sugerir <br></br> produto</h2>
       </Column>
       <User />
+      <Logout onClick={()=>navigate("/")} >
+          <h1>Sair</h1>
+          
+      </Logout>
     </Container>
   );
 }
+
+const Logout=styled.div`
+  h1{
+    font-size: 20px;
+  }
+`
 
 const Column=styled.div`
 
