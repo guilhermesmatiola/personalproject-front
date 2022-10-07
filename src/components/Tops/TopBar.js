@@ -10,7 +10,7 @@ export default function TopBar() {
   return (
     <Container>
       <Logo> 
-        <img onClick={()=>navigate("/createproduct")} src={condoshoplogomini} alt="logo" />
+        <img  src={condoshoplogomini} alt="logo" />
       </Logo>
       <Column>
       <ion-icon onClick={()=>navigate("/recommendations")} name="create-sharp"></ion-icon>

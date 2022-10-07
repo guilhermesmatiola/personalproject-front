@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState, React, ReactDOM } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState, React } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import RecommendationTopBar from './Tops/TopBarRecommendations';
@@ -8,9 +8,8 @@ import UserRecommendationCreate from './Support/CreateRecommend'
 
 export default function RecommendationsPage() {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [cart, setCart] = useState([]);
 
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -113,7 +112,7 @@ export default function RecommendationsPage() {
                 </Titles>
                 
                 <img  src={item.image} alt={item.name} />
-                <h2> <h1>Preço: </h1>  R${item.price.toFixed(2)}</h2>
+                <h2> <h1>Preço: </h1>  R${item.price.toFixed(2).replace('.', ',')}</h2>
                 
                 <Score >
                   <h4> {item.score} |</h4>
