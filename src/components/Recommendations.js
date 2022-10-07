@@ -21,10 +21,10 @@ export default function RecommendationsPage() {
 
   }
 
-  async function onClickFavorite() {
+  async function Favorite(id) {
         
     try {
-        // await axios.post(`localhost:4000/posts/favorite`,)
+        await axios.post(`http://localhost:4000/${id}/upvote`)
   
         setIsFavorite(!isFavorite);
         
@@ -33,20 +33,17 @@ export default function RecommendationsPage() {
     }
   }
 
-  async function removeFavorite() {
+  async function Deslike(id) {
       try {
-          // await axios.delete(`localhost:4000/posts/delfavorite/`,);
+          await axios.post(`http://localhost:4000/${id}/downvote`);
 
           setIsFavorite(false);
-
       } catch (e) {
-          console.log(e)
-
+          
       }
   }
 
-  useEffect(() => {
-   
+  function renderPosts(){
     const config = {
       headers: {
         Authorization: `Bearer ${user.token}`
@@ -60,15 +57,15 @@ export default function RecommendationsPage() {
     });
 
     request.catch(error => {
-      console.log(error);
     });
+  }
+
+  useEffect(() => {
+    renderPosts();
   }, []);
 
-  const navigateToContacts = () => {
-    // 👇️ navigate to /contacts
-    navigate('/contacts');
-  };
-
+ 
+  
 
   return (
     
@@ -90,13 +87,14 @@ export default function RecommendationsPage() {
                     <h3>{item.description}</h3>
                 </Titles>
                 
-                <img src={item.image} alt={item.name} />
+                <img  src={item.image} alt={item.name} />
                 <h2> <h1>Preço: </h1>  R${item.price.toFixed(2)}</h2>
-
+                
+                {/*  */}
                 <Score >
                   <h4> {item.score} |</h4>
-                  <ion-icon  name="thumbs-up"></ion-icon>
-                  <ion-icon name="thumbs-down"></ion-icon>
+                  <ion-icon  onClick={ ()=> Favorite(item.id)} name="thumbs-up"></ion-icon>
+                  <ion-icon onClick={ ()=> Deslike(item.id)} name="thumbs-down"></ion-icon>
                 </Score>
 
               </Recommendation>

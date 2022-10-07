@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import condoshoplogomini from "../../assets/condoshopmini.png"
-import User from "../User";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function GenericTopBar() {
 
@@ -15,27 +14,6 @@ export default function GenericTopBar() {
     </Container>
   );
 }
-
-const Column=styled.div`
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  h2{
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    font-size: 15px;
-    color: #000000;
-  }
-  ion-icon{
-        color:white;
-        width: 40px;
-        height: 40px;
-    }
-
-`
 
 const Logo = styled.div`
 

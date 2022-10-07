@@ -21,7 +21,7 @@ export default function Item({ item }) {
       </div>
 
       <div className="right">
-        <img src={image} />
+        <img src={image} alt={name} />
         {cart.includes(item) ? (
           'Adicionado'
         ) : (

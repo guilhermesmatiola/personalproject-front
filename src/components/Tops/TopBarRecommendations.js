@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import condoshoplogomini from "../../assets/condoshopmini.png"
-import User from "../User";
+import User from "./User";
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function RecommendationTopBar() {
