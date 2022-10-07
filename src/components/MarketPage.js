@@ -47,7 +47,7 @@ export default function MarketPage() {
   function BuyItems(){
     let t1=encodeURIComponent("Olá, os seguintes itens foram retirados:\n");
     let t2=encodeURIComponent(`Itens retirados: ${buyedItems}\n`)
-    let finalValue=encodeURIComponent(`\nValor total dos itens retirados: R$ ${sumPrices} `);
+    let finalValue=encodeURIComponent(`\nValor total dos itens retirados: R$ ${sumPrices.toFixed(2)} `);
 
       function finalizarPedido(){
           let nome=userMaster.name;
