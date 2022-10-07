@@ -21,7 +21,7 @@ export default function LoginPage() {
 
     setIsLoading(true);
     const body = { email, password };
-    const request = axios.post('http://localhost:4000/signin', body);
+    const request = axios.post('https://projeto-autoral-guilherme.herokuapp.com/signin', body);
 
     request.then(response => {
       setUser(response.data);

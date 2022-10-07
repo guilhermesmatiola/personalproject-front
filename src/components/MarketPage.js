@@ -26,7 +26,7 @@ export default function MarketPage() {
       }
     };
 
-    const request = axios.get('http://localhost:4000/products', config);
+    const request = axios.get('https://projeto-autoral-guilherme.herokuapp.com/products', config);
 
     request.then(response => {
       setItems(response.data);
@@ -50,17 +50,12 @@ export default function MarketPage() {
     let finalValue=encodeURIComponent(`\nValor total dos itens retirados: R$ ${sumPrices} `);
 
       function finalizarPedido(){
-          
-
           let nome=userMaster.name;
           let endereco=userMaster.city;
           let t5=encodeURIComponent("\nCompra realizada no nome de: " + nome);
           let t6=encodeURIComponent("\nEndereço: " + endereco);
-
           window.open("https://wa.me/+5547996993721?text="+t1+t2+finalValue+t5+t6);
-        
       }
-
       finalizarPedido()
   }
 

@@ -49,7 +49,7 @@ export default function RecommendationsPage() {
   async function Favorite(id) {
         
     try {
-        await axios.post(`http://localhost:4000/${id}/upvote`)
+        await axios.post(`https://projeto-autoral-guilherme.herokuapp.com/${id}/upvote`)
   
         setIsFavorite(!isFavorite);
         renderPosts();
@@ -61,7 +61,7 @@ export default function RecommendationsPage() {
 
   async function Deslike(id) {
       try {
-          await axios.post(`http://localhost:4000/${id}/downvote`);
+          await axios.post(`https://projeto-autoral-guilherme.herokuapp.com/${id}/downvote`);
 
           setIsFavorite(false);
           renderPosts();
@@ -77,7 +77,7 @@ export default function RecommendationsPage() {
       }
     };
     
-    const request = axios.get('http://localhost:4000/recommendations', config);
+    const request = axios.get('https://projeto-autoral-guilherme.herokuapp.com/recommendations', config);
 
     request.then(response => {
       setItems(response.data);

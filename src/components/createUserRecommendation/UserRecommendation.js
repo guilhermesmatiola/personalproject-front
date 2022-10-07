@@ -35,7 +35,7 @@ export default function UserRecommendation({ onCreateNewRecommendation = () => 0
         price      
     }
 
-    const promise=axios.post(`http://localhost:4000/recommendations`, postTransaction, config);
+    const promise=axios.post(`https://projeto-autoral-guilherme.herokuapp.com/recommendations`, postTransaction, config);
 
     promise.then(resposta => {
         setDescription("");

@@ -26,7 +26,7 @@ export default function LoginPage() {
       image: picture
     };
 
-    const request = axios.post('http://localhost:4000/signup', body);
+    const request = axios.post('https://projeto-autoral-guilherme.herokuapp.com/signup', body);
 
     request.then(response => {
       setIsLoading(false);
