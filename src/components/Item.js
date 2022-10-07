@@ -26,7 +26,7 @@ export default function Item({ item }) {
           'Adicionado'
         ) : (
           <Button noMargin onClick={() => addToCart(item)}>
-            Adicionar
+            Adicionar produto
           </Button>
         )}
       </div>
@@ -52,6 +52,7 @@ const Container = styled.div`
     width: 128px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     img {
       width: 100%;

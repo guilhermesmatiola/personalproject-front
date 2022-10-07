@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-// import FloatingCartButton from './FloatingCartButton';
 import Item from './Item';
 import TopBar from './Tops/TopBar';
 import InsertButton from './Support/InsertProductButton';
-
 import CartContext from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
 
@@ -18,6 +16,7 @@ export default function MarketPage() {
 
   const context = useContext(UserContext);
   const userMaster = context.user.user;
+
 
   useEffect(() => {
     
@@ -41,27 +40,29 @@ export default function MarketPage() {
   function addToCart(item) {
     setCart([...cart, item]);
   }
-  // console.log(cart)
+
+  const sumPrices = cart.map(item => item.price).reduce((prev, curr) => prev + curr, 0);
+  const buyedItems = cart.map(item => item.name).reduce((prev, curr) => prev +  curr + ", ", "");
   
-  // function BuyItems(){
-  //   let t1=encodeURIComponent("Olá, gostaria de fazer o pedido:\n ");
-  //   let finalValue=encodeURIComponent("\nTotal: R$ ");
+  function BuyItems(){
+    let t1=encodeURIComponent("Olá, os seguintes itens foram retirados:\n");
+    let t2=encodeURIComponent(`Itens retirados: ${buyedItems}\n`)
+    let finalValue=encodeURIComponent(`\nValor total dos itens retirados: R$ ${sumPrices} `);
 
+      function finalizarPedido(){
+          
 
-  //     function finalizarPedido(){
-  //         // let valorfinal = (2);
+          let nome=userMaster.name;
+          let endereco=userMaster.city;
+          let t5=encodeURIComponent("\nCompra realizada no nome de: " + nome);
+          let t6=encodeURIComponent("\nEndereço: " + endereco);
 
-  //         let nome=userMaster.name;
-  //         let endereco=userMaster.city;
-  //         let t5=encodeURIComponent("\nNome: " + nome);
-  //         let t6=encodeURIComponent("\nEndereço: " + endereco);
-
-  //         // valorfinal=valorfinal.toFixed(2);
-  //         // valorfinal=encodeURIComponent(valorfinal);
-  //         window.open("https://wa.me/+5547996993721?text="+t1+finalValue+t5+t6);
+          window.open("https://wa.me/+5547996993721?text="+t1+t2+finalValue+t5+t6);
         
-  //     }
-  // }
+      }
+
+      finalizarPedido()
+  }
 
   function buildItems() {
     if (items) {
@@ -92,6 +93,7 @@ export default function MarketPage() {
         <TopBar />
           <Container>
             <h1>Adquira seus produtos abaixo!</h1>
+            <button onClick={BuyItems} >Finalizar o pedido</button>
             
             {buildItems()}
           </Container>
@@ -118,6 +120,22 @@ const Container = styled.div`
   padding: 20px;
   background-color: #38b6ff;
   button{
-
+    height: 50px;
+    width: 100%;
+    background-color: ${props =>
+      typeof props.active !== 'boolean' || props.active ? "#FFFFFF" : '#FFFFFF'};
+    color: #38b6ff;
+    font-weight: bold;
+    font-size: medium;
+    font-family: 'Lexend Deca', sans-serif;
+    padding: 14px;
+    ${props => !props.noMargin && 'margin-bottom: 10px;'}
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    cursor: pointer;
   }
 `;
