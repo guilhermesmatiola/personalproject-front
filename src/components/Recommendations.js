@@ -12,14 +12,40 @@ export default function RecommendationsPage() {
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
 
-  const [isLiked, setIsLiked] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  function toggleLike(){
 
-      setIsLiked=(!isLiked);
 
-  }
+
+
+
+  // let likeoutline="thumbs-up-outline";
+  // const [type, setType] = React.useState(likeoutline);
+  // const [classe, setClas] = React.useState("");
+
+  // function Heart(props){
+  //   return(
+  //       <ion-icon name={props.type} class={props.class} onClick={like}></ion-icon>
+  //   );
+  // }
+
+  // function like(){
+  //   if(type==likeoutline){
+  //       setType("thumbs-up");
+  //       setClas("like");
+  //   }else{
+  //       setType("thumbs-up-outline");
+  //       setClas("");
+  //   }   
+  // }
+
+
+
+
+
+
+
+
 
   async function Favorite(id) {
         
@@ -27,6 +53,7 @@ export default function RecommendationsPage() {
         await axios.post(`http://localhost:4000/${id}/upvote`)
   
         setIsFavorite(!isFavorite);
+        renderPosts();
         
     } catch (e) {
 
@@ -38,6 +65,7 @@ export default function RecommendationsPage() {
           await axios.post(`http://localhost:4000/${id}/downvote`);
 
           setIsFavorite(false);
+          renderPosts();
       } catch (e) {
           
       }
@@ -64,9 +92,6 @@ export default function RecommendationsPage() {
     renderPosts();
   }, []);
 
- 
-  
-
   return (
     
     <Edit>
@@ -90,11 +115,14 @@ export default function RecommendationsPage() {
                 <img  src={item.image} alt={item.name} />
                 <h2> <h1>Preço: </h1>  R${item.price.toFixed(2)}</h2>
                 
-                {/*  */}
                 <Score >
                   <h4> {item.score} |</h4>
-                  <ion-icon  onClick={ ()=> Favorite(item.id)} name="thumbs-up"></ion-icon>
-                  <ion-icon onClick={ ()=> Deslike(item.id)} name="thumbs-down"></ion-icon>
+                  {isFavorite ? <ion-icon onClick={ ()=> Deslike(item.id)} name="thumbs-up"></ion-icon> :
+                                <ion-icon  onClick={ ()=> Favorite(item.id)} name="thumbs-up"></ion-icon>
+                  }
+                  {isFavorite ? <ion-icon onClick={ ()=> Favorite(item.id)} name="thumbs-down"></ion-icon> :
+                                <ion-icon  onClick={ ()=> Deslike(item.id)} name="thumbs-down"></ion-icon>
+                  }
                 </Score>
 
               </Recommendation>
